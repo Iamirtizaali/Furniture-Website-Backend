@@ -32,11 +32,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+//api routers
+const authRouter = require("./api/controllers/auth/router");
+const productRouter = require("./api/controllers/product/router");
+const orderRouter = require("./api/controllers/order/router");
+const cartRouter = require("./api/controllers/cart/router");
+const paymentRouter = require("./api/controllers/payment/router");
+const blogRouter = require("./api/controllers/blog/router");
 
-
-
-
-
+app.use("/api/auth", authRouter);
+app.use("/api/product", productRouter);
+app.use("/api/order", orderRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/payment", paymentRouter);
+app.use("/api/blog", blogRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);

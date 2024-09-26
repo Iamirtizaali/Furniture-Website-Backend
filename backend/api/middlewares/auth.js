@@ -18,7 +18,7 @@ exports.auth = async (req, res, next) => {
         .send({ message: "Login first to access the resource" });
     }
     if (decoded) {
-      req.user = await User.findById(decoded.id);
+      req.user = await User.findOne({_id:decoded._id});
       next();
     }
   });

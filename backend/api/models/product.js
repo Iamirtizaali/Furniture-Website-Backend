@@ -8,8 +8,9 @@ const productSchema = new mongoose.Schema({
         trim: true,
     },
     category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Category",
+        type:String,
+        required:true,
+        trim:true
     },
     description: {
         type: String,
@@ -34,6 +35,9 @@ const productSchema = new mongoose.Schema({
        type:Number,
        required:true,
    },
+    picture:{
+         type:String,
+    },
 },
 {
     timestamps: true,

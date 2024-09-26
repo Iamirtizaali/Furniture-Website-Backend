@@ -66,6 +66,15 @@ const addWishlist=async(id,product_id)=>{
     }
 }
 
+const getWishlist=async(id)=>{
+    try{
+        return await User.findById(id).populate('wishlist');
+    }
+    catch(error){
+        throw new Error(error);
+    }
+}
+
 const removeWishlist=async(id,product_id)=>{
     try{
         return await User.findByIdAndUpdate(id,
@@ -85,6 +94,36 @@ const addOrder=async(id,order_id)=>{
         throw new Error(error);
     }
 }
+const addAddress=async(id,address)=>{
+    try{
+        return await User.findByIdAndUpdate(id,
+            {$push:{addresses:address}},{new:true});
+
+    }
+    catch(error){
+        throw new Error(error);
+    }
+}
+
+const removeAddress=async(id,address)=>{
+    try{
+        return await User.findByIdAndUpdate(id,
+            {$pull:{addresses:address}},{new:true});
+    }
+    catch(error){
+        throw new Error(error);
+    }
+}
+
+const updateAddress=async(id,address_id,address)=>{
+    try{
+        return await User.findOneAndUpdate(id,{"addresses._id":address_id},address,{new:true});
+    }
+    catch(error){
+        throw new Error(error);
+    }
+}
 
 
-module.exports={addUser,getUser,updateUser,deleteUser,getUserById,getAllUsers,addWishlist,removeWishlist,addOrder};
+
+module.exports={addUser,getUser,updateUser,deleteUser,getUserById,getAllUsers,addWishlist,removeWishlist,addOrder,addAddress,removeAddress,updateAddress,getWishlist};

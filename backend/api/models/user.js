@@ -26,13 +26,13 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "user",
+        enum: ["user", "admin"],
     },
     address:
-    {
+    [{
         type: String,
-        required: true,
         trim: true,
-    },
+    }],
     wishlist:[
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -60,8 +60,8 @@ userSchema.methods.generateAuthToken = function () {
     return token;
 }
 
-userSchema.verifyPassword = function (password) {
-    return bcrypt.compare(password, this.password);
+userSchema.methods.verifyPassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
 }
 
 userSchema.pre("save", async function (next) {
@@ -72,6 +72,4 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports =  mongoose.model("User", userSchema);

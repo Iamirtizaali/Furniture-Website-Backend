@@ -10,7 +10,6 @@ const userSchema=joi.object({
     username:joi.string().required(),
     email:joi.string().email().lowercase().required(),
     password:joi.string().min(6).required(),
-    address:joi.string().required(),
 });
 
 const categorySchema=joi.object({
@@ -44,7 +43,7 @@ const orderSchema=joi.object({
 const blogSchema=joi.object({
     title:joi.string().required(),
     content:joi.string().required(),
-    user_id:joi.string().required(),
+    author:joi.string().required(),
 });
 
 const newsletterSchema=joi.object({
@@ -58,6 +57,17 @@ const reviewSchema=joi.object({
     review_text:joi.string().required(),
 });
 
+const loginSchema=joi.object({
+    email:joi.string().email().required(),
+    password:joi.string().min(6).required(),
+});
+
+const updatePasswordSchema=joi.object({
+    old_password:joi.string().min(6).required(),
+    new_password:joi.string().min(6).required(),
+
+});
+
 module.exports={
     authSchema,
     userSchema,
@@ -67,6 +77,8 @@ module.exports={
     blogSchema,
     newsletterSchema,
     reviewSchema,
+    loginSchema,
+    updatePasswordSchema,
 }
 
 

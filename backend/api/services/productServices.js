@@ -1,5 +1,5 @@
 const Product=require('../models/product');
-
+const User=require('../models/user');
 const addProduct=async(product)=>{
     try{
         return await Product.create(product);
@@ -91,7 +91,21 @@ const sortByColor=async(color)=>{
     }
 }
 
+const uploadPicture=async function(_id,picture){
+    // Upload to cloud storage
+    const user=await User.findOne({_id:_id});
+    user.picture=picture;
+    await user.save();
+    return user;
+}
 
+const uploadDocuments=async function(_id,documents){
+    // Upload to cloud storage
+    const user=await User.findOne({_id:_id});
+    user.documents=documents;
+    await user.save();
+    return user;
+}
 
 module.exports={
     addProduct,
@@ -104,4 +118,6 @@ module.exports={
     sortByPrice,
     sortBySize,
     sortByColor,
+    uploadPicture,
+    uploadDocuments
 }
